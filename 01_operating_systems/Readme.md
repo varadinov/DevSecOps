@@ -1,2 +1,2 @@
-[Vagrant]:(/vagrant.md)
-[Linux Command Cheat Sheet]:(/linux.md)
+[Vagrant](vagrant.md)
+[Linux Command Cheat Sheet](linux.md)
