@@ -3,17 +3,25 @@ Vagrant tries to simplify the configuration management of virtual machines in or
 
 # Vagrant Basic commands
 # Creating a VM
+```
 vagrant up
+```
 **Note:** you may need to specify --provider=hyperv
 
 ## Getting into a VM
+```
 vagrant ssh -- connects to machine via SSH protocol
 vagrant rdp -- connects to machine via RDP protocol
 vagrant <ssh/rdp> <boxname> -- if you have more than one boxes, you have to specify the boxname
+```
 
 ## Stopping a VM
+```
 vagrant halt -- stops the vagrant machines
+```
 
 ## Removign a VM
+```
 vagrant destroy
+```
 
