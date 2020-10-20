@@ -1,3 +1,4 @@
 boxes/*
 /.vagrant
 /.vscode
+**/.vagrant
