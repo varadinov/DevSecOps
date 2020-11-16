@@ -2,3 +2,4 @@ boxes/*
 /.vagrant
 /.vscode
 **/.vagrant
+**/~$*

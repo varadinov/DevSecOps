@@ -2,7 +2,7 @@ Vagrant.configure(2) do |config|
   
     config.vm.define "centos8" do |server|
       server.vm.box = "generic/centos8"
-      server.vm.hostname = "centos8.infra.local"
+      server.vm.hostname = "centos8"
       server.vm.network "private_network", ip: "192.168.10.10"
   
       server.vm.provider :libvirt do |libvirt|
@@ -12,7 +12,8 @@ Vagrant.configure(2) do |config|
 
     config.vm.define "windows2019" do |server|
       server.vm.box = "StefanScherer/windows_2019"
-      server.vm.hostname = "windows2019.infra.local"
+      server.vm.synced_folder ".", "/vagrant", disabled: true
+      server.vm.hostname = "windows2019"
       server.vm.network "private_network", ip: "192.168.10.11"
   
       server.vm.provider :libvirt do |libvirt|
