@@ -1,0 +1,13 @@
+Vagrant.configure(2) do |config|
+  
+    config.vm.define "windows2019" do |server|
+      server.vm.box = "StefanScherer/windows_2019"
+      server.vm.synced_folder ".", "/vagrant", disabled: true
+      server.vm.hostname = "dc01"
+  
+      server.vm.provider :libvirt do |libvirt|
+        libvirt.memory = 2048
+      end
+    end
+end
+  
