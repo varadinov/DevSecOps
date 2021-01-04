@@ -1,0 +1,51 @@
+---
+- name: Windows web servers play
+  hosts: win_web_servers
+  gather_facts: true
+
+  tasks:
+    - name: Set dns client to domain controller
+      win_dns_client:
+        adapter_names: '*'
+        ipv4_addresses:
+          - "{{  groups['domain_controllers'][0] }}"
+
+    - win_domain_membership:
+        dns_domain_name: "{{ ad_dns_domain_name }}"
+        domain_admin_user: "{{ ad_domain_admin_user }}"
+        domain_admin_password: "{{ ad_domain_admin_password }}"
+        state: domain
+      register: domain_state
+
+    - win_reboot:
+      when: domain_state.reboot_required
+
+    - name: Add a PowerShell module
+      win_psmodule:
+        name: NetworkingDsc
+        state: present
+
+    - name: Set DNS connection suffix
+      win_dsc: 
+        resource_name: DnsConnectionSuffix
+        InterfaceAlias: '*'
+        ConnectionSpecificSuffix: 'contoso.local'
+
+    - name: Set DNS global settings suffix list
+      win_dsc: 
+        resource_name: DnsClientGlobalSetting
+        IsSingleInstance: 'Yes'
+        SuffixSearchList: 'contoso.local'
+
+    # This is just a demo if you don't have a native module or dsc resources.
+    # There is a module for windows feature and you should use it for this goal.
+    # So please use this just for reference how to use win_shell for some specific tasks.
+    - name: Get windows server backup feature state
+      win_shell: Get-WindowsFeature | where { $_.name -eq 'Windows-Server-Backup' } | select -ExpandProperty InstallState
+      register: window_server_backup_state
+      changed_when: false
+
+    - name: Install windows server backup feature
+      win_shell: Install-WindowsFeature -Name 'Windows-Server-Backup'
+      when: window_server_backup_state.stdout_lines[0] == 'Available'
+

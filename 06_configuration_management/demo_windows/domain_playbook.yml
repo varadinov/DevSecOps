@@ -1,0 +1,42 @@
+---
+- name: Domain controller play
+  hosts: domain_controllers
+  gather_facts: true
+
+  tasks:
+    - name: Create new Windows domain in a new forest with specific parameters
+      win_domain:
+        dns_domain_name: "{{ ad_dns_domain_name }}"
+        domain_netbios_name: "{{ ad_netbios_domain_name }}"
+        safe_mode_password: password123!
+      register: domain_install
+ 
+    - name: Reboot domain controller if required
+      win_reboot:
+        pre_reboot_delay: 120 # not required. Seconds for shutdown to wait before requesting reboot
+        msg: Reboot initiated by Ansible because of domain build # not required. Message to display to users
+        connect_timeout: 5 # not required. Maximum seconds to wait for a single successful TCP connection to the WinRM endpoint before trying again
+      when: domain_install.reboot_required
+
+    - name: Install AD DS Tools
+      win_feature:
+          name: RSAT-ADDS 
+          state: present 
+
+    - name: Ensure user bob is present with address information
+      win_domain_user:
+        name: bob
+        firstname: Bob
+        surname: Smith
+        company: Contoso
+        password: '!nitialP@ssw0rd'
+        state: present
+        street: 123 4th St.
+        city: Sometown
+        state_province: IN
+        postal_code: 12345
+        country: US
+        attributes:
+          telephoneNumber: 555-123456
+
+
