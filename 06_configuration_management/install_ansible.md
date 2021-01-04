@@ -1,6 +1,8 @@
 # CentOS/RHEL/AmazonLinux
+```bash
 sudo yum install python3
 sudo pip3 install ansible==2.9.16
+```
 
 ```bash
 ansible --version
@@ -14,9 +16,11 @@ ansible 2.9.16
 ```
 
 # Ubuntu
+```bash
 sudo apt update
 sudo apt install python3 python3-pip
 sudo pip3 install ansible==2.9.16
+```
 
 ```bash
 ansible --version
