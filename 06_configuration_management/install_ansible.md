@@ -2,6 +2,7 @@
 sudo yum install python3
 sudo pip3 install ansible==2.9.16
 
+```bash
 ansible --version
 ansible 2.9.16
   config file = None
@@ -9,12 +10,15 @@ ansible 2.9.16
   ansible python module location = /usr/local/lib/python3.7/site-packages/ansible
   executable location = /usr/local/bin/ansible
   python version = 3.7.9 (default, Aug 27 2020, 21:59:41) [GCC 7.3.1 20180712 (Red Hat 7.3.1-9)]
+
+```
 
 # Ubuntu
 sudo apt update
 sudo apt install python3 python3-pip
 sudo pip3 install ansible==2.9.16
 
+```bash
 ansible --version
 ansible 2.9.16
   config file = None
@@ -22,6 +26,7 @@ ansible 2.9.16
   ansible python module location = /usr/local/lib/python3.7/site-packages/ansible
   executable location = /usr/local/bin/ansible
   python version = 3.7.9 (default, Aug 27 2020, 21:59:41) [GCC 7.3.1 20180712 (Red Hat 7.3.1-9)]
+```
 
 # WSL access C:\ drive
 * Install WSL Ubuntu from Windows Store
