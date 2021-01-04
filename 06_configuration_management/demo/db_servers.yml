@@ -1,0 +1,11 @@
+---
+- name: My database server play
+  hosts: dbservers
+  remote_user: ec2-user
+  become: yes
+
+  tasks:
+  - name: ensure mariadb is at the latest version
+    yum:
+      name: mariadb
+      state: latest

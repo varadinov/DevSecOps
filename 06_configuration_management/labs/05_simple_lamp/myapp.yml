@@ -1,0 +1,23 @@
+---
+# This playbook deploys the whole application stack in this site.
+    
+- name: Apply common configuration to all nodes
+  hosts: all
+  become: yes
+
+  roles:
+    - common
+
+- name: Configure and deploy the webservers and application code
+  hosts: webservers
+  become: yes
+  
+  roles:
+    - web
+
+- name: Deploy MariaDB and configure the databases
+  hosts: dbservers
+  become: yes
+
+  roles:
+    - db

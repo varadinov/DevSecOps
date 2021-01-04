@@ -1,0 +1,14 @@
+- name: Install apache
+  package: 
+    name: httpd 
+    state: present 
+    
+- name: Start apache service httpd, if not started
+  service:
+    name: httpd
+    state: started
+
+- name: index.html 
+  template: 
+    src: index.html.j2 
+    dest: /var/www/html/index.html

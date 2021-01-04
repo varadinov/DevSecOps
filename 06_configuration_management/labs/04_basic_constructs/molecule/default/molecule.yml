@@ -1,0 +1,39 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+
+driver:
+  name: delegated
+
+platforms:
+  - name: molecule-linux-lab-demo-webserver
+    aws_image_id: ami-03657b56516ab7912
+    aws_region: us-east-2
+    instance_type: t2.micro
+    assign_public_ip: False
+    groups:
+      - webservers    
+ 
+  - name: molecule-linux-lab-demo-dbserver
+    aws_image_id: ami-03657b56516ab7912
+    aws_region: us-east-2
+    instance_type: t2.micro
+    assign_public_ip: False
+    groups:
+      - database    
+ 
+provisioner:
+  name: ansible
+  log: true
+  host_key_checking: False
+  connection_options:
+    ansible_connection: ssh
+
+scenario:
+  name: default
+
+verifier:
+  name: ansible
+

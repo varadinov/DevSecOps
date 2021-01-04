@@ -1,0 +1,23 @@
+---
+- name: My web server play
+  hosts: webservers
+  remote_user: ec2-user
+  become: yes
+
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+  
+  - name: ensure apache service is started
+    service:
+      name: httpd
+      state: started
+
+  - name: Create index.html in /var/www/html/
+    template: 
+      src: index.html.j2 
+      dest: /var/www/html/index.html
+    vars:
+      message: "{{ inventory_hostname }}"

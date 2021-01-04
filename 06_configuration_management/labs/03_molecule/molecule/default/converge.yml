@@ -1,0 +1,19 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  gather_facts: no
+  vars:
+    - message: "Welcome to molecule!"
+
+  tasks:
+    - name: Wait for connection
+      wait_for_connection:
+        sleep: 10
+        timeout: 600
+
+    - name: "Include webserver role"
+      # We including 03_molecule since this is the name of the directory. 
+      # Molecule is adding in the roles path one level up of the current directory and it is looking for the role there.
+      include_role:
+        name: "03_molecule"

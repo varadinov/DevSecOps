@@ -1,0 +1,19 @@
+---
+    - hosts: all
+      become: yes
+      gather_facts: False
+    
+      tasks:
+        - name: create users
+          user:
+            name: "{{ item }}"
+            state: present
+          loop:
+            - bobi
+            - deyan
+            - jesse
+            - alex
+            - ilir
+            - daniel
+    
+  
