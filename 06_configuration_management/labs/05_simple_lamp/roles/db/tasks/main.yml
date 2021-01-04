@@ -1,0 +1,31 @@
+---
+# This playbook will install mysql and create db user and give permissions.
+
+- name: Install Maridb package
+  yum:
+    name:
+      - mariadb-server
+      - MySQL-python
+      - libselinux-python
+      - libsemanage-python
+    state: installed
+
+- name: Start MariaDB Service
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+
+- name: Create Application Database
+  mysql_db:
+    name: "{{ dbname }}"
+    state: present
+
+- name: Create Application DB User
+  mysql_user:
+    name: "{{ dbuser }}"
+    password: "{{ upassword }}"
+    priv: "*.*:ALL"
+    host: '%'
+    state: present
+  no_log: True

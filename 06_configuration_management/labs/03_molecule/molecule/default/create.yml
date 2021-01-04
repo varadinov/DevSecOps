@@ -1,0 +1,103 @@
+---
+- name: "Create"
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  no_log: "{{ not ((lookup('env', 'MOLECULE_DEBUG') | bool) or (molecule_yml.provisioner.log | default(false) | bool)) }}"
+
+  vars:
+    molecule_file: "{{ lookup('env', 'MOLECULE_FILE') }}"
+    molecule_instance_config: "{{ lookup('env','MOLECULE_INSTANCE_CONFIG') }}"
+    molecule_yml: "{{ lookup('file', molecule_file) | from_yaml }}"
+    ansible_user: "{{ lookup('env', 'MOLECULE_ANSIBLE_USER') | default('molecule', True) }}"
+    ansible_password: "{{ lookup('env', 'MOLECULE_ANSIBLE_PASSWORD') | default('P@ssw0rd!@#', True) }}"
+    ec2_user_data: "{{ lookup('template', './_user_data') }}"
+    security_group_name: ansible-molecule-testing
+    security_group_description: Security group for testing with Ansible Molecule
+    security_group_rules:
+      - proto: -1
+        from_port: 0
+        to_port: 0
+        cidr_ip: 10.0.0.0/8
+    security_group_rules_egress:
+      - proto: -1
+        from_port: 0
+        to_port: 0
+        cidr_ip: '0.0.0.0/0'
+
+  tasks:
+    - name: Get vpc info
+      ec2_vpc_net_info:
+      register: vpc_info
+
+    - name: Get vpc subnet info
+      ec2_vpc_subnet_info:
+      register: vpc_subnet_info
+
+    - name: Create security group
+      ec2_group:
+        name: "{{ security_group_name }}"
+        vpc_id: "{{ vpc_info.vpcs[0].vpc_id }}" # We have only one vpc
+        description: "{{ security_group_description }}"
+        rules: "{{ security_group_rules }}"
+        rules_egress: "{{ security_group_rules_egress }}"
+        tags:
+          Name: "{{ security_group_name }}"
+      register: ansible_security_group
+
+    - name: Start Linux instances
+      ec2:
+        region: '{{ item.aws_region }}'
+        image: '{{ item.aws_image_id }}'
+        instance_type: '{{ item.instance_type }}'
+        group: "{{ ansible_security_group.group_name }}"
+        assign_public_ip: '{{ item.assign_public_ip | default(True) }}'
+        wait: True
+        wait_timeout: '{{ item.wait_timeout | default(600) }}'
+        instance_tags:
+          instance: '{{ item.name }}'
+          Name: '{{ item.name }}'
+          ansible_dev: "true"
+        vpc_subnet_id: "{{ vpc_subnet_info.subnets | to_json | from_json | json_query('[?contains(tags.Name, `private`)].subnet_id') | first }}"
+        #spot_price: '{{ item.spot_price }}'
+        spot_wait_timeout: '{{ item.wait_timeout | default(600) }}'
+        user_data: "{{ ec2_user_data }}"
+        exact_count: 1
+        count_tag:
+          instance: '{{ item.name }}'
+      register: ec2
+      loop: '{{ molecule_yml.platforms }}'
+      async: 7200
+      poll: 0
+
+    - name: Wait for instance(s) creation to complete
+      async_status:
+        jid: '{{ item.ansible_job_id }}'
+      loop: '{{ ec2.results }}'
+      register: instance_create
+      until: instance_create.finished
+      delay: 20
+      retries: 300
+
+    - name: Populate instance config dict
+      set_fact:
+        instance_conf_dict: {
+          instance: '{{ item.instances[0].tags.instance }}',
+          address: '{{ item.instances[0].public_ip | default(item.instances[0].private_ip, True) }}',
+          user: '{{ ansible_user }}',
+          password: "{{ ansible_password }}"
+        }
+      loop: '{{ instance_create.results }}'
+      register: instance_config_dict
+      when: instance_create.changed | bool
+
+    - name: Convert instance config dict to a list
+      set_fact:
+        instance_conf: "{{ instance_config_dict.results | map(attribute='ansible_facts.instance_conf_dict') | list }}"
+        when: instance_create.changed | bool
+
+    - name: Dump instance config
+      copy:
+        content: '{{ instance_conf | to_json | from_json | molecule_to_yaml | molecule_header }}'
+        dest: '{{ molecule_instance_config }}'
+      when: instance_create.changed | bool

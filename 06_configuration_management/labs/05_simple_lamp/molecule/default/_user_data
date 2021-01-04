@@ -1,0 +1,5 @@
+#!/bin/bash
+sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+systemctl restart sshd
+useradd -m -p $(openssl passwd -1 {{ ansible_password }}) -s /bin/bash {{ ansible_user }}
+echo "{{ ansible_user }} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/{{ ansible_user }}

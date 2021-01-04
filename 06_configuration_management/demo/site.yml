@@ -1,0 +1,5 @@
+- name: Import WebServer playbook
+  import_playbook: web_servers.yml
+
+- name: Import DBServers playbook
+  import_playbook: db_servers.yml

@@ -1,0 +1,11 @@
+---
+- hosts: webservers
+  remote_user: ec2-user
+  become: yes
+  gather_facts: False
+
+  vars:
+    - message: "I don't like the default message"
+
+  roles:
+    - webserver
