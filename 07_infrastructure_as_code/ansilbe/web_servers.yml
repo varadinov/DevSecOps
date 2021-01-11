@@ -1,0 +1,27 @@
+---
+- name: My web server play
+  hosts: tag_Role_webserver
+  gather_facts: no
+  remote_user: ec2-user
+  become: yes
+
+  tasks:
+  - wait_for_connection:
+      timeout: 600
+
+  - name: ensure apache is at the latest version
+    yum:
+      name: httpd
+      state: latest
+  
+  - name: ensure apache service is started
+    service:
+      name: httpd
+      state: started
+
+  - name: Create index.html in /var/www/html/
+    template: 
+      src: index.html.j2 
+      dest: /var/www/html/index.html
+    vars:
+      message: "Hello from EC2 instnace built with terraform and converged with Ansible. My host name is {{ inventory_hostname }}"
