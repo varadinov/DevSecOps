@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello World') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+
+        // This is an example if you want to run ansible
+        // You need ansible to be installed on the agent or the container where you run the pipeline
+        // stage('Ansible Web Servers') {
+        //     steps {
+        //         sh 'ansible-playbook web_servers.yml -i hosts'
+        //     }
+        // }
+    }
+}
