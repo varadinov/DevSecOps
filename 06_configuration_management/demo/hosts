@@ -1,16 +1,16 @@
 [webservers]
-3.17.160.48
-3.135.233.7
+18.193.3.181
+18.193.127.31
 
 [dbservers]
-13.58.91.115
+35.158.109.7
 
 [winwebserver]
 3.137.156.184
 
 [winwebserver:vars]
 ansible_user=administrator
-ansible_password=OcK46!Ny-Uclyx%qiRSR7*T.Nr2glQzY
+ansible_password=password
 ansible_connection=winrm
 ansible_winrm_transport=ntlm
 ansible_winrm_port=5986

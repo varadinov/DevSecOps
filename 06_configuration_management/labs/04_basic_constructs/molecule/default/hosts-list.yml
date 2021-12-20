@@ -1,0 +1,15 @@
+# Molecule managed
+
+---
+- address: 3.145.116.35
+  ansible_password: P@ssw0rd!@#
+  ansible_user: molecule
+  groups:
+    - webservers
+  instance: molecule-linux-lab-demo-webserver
+- address: 18.191.72.178
+  ansible_password: P@ssw0rd!@#
+  ansible_user: molecule
+  groups:
+    - database
+  instance: molecule-linux-lab-demo-dbserver

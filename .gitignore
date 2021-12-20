@@ -1,3 +1,5 @@
+hosts.yml
+.venv/*
 boxes/*
 /.vagrant
 /.vscode

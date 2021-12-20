@@ -1,8 +1,8 @@
 [domain_controllers]
-18.191.194.204
+3.69.150.26
 
 [win_web_servers]
-18.222.123.81
+3.125.158.242
 
 [all:vars]
 ansible_user=administrator
@@ -16,7 +16,7 @@ ad_domain_admin_user=contoso\admin
 ad_domain_admin_password=P@ssw0rd!@#
 
 [win_web_servers:vars]
-ansible_password=.8F)*IEn3@4ceS2t6-(Bm--i.U;ja6cN
+ansible_password=WhfeHeJ94Cg4FIzosdOCSaG4RdW!7lEG
 
 [domain_controllers:vars]
-ansible_password=bKfThu6BBCSN;C5k2tuWF!)vJWfg%hNB
+ansible_password=tAjAEdS65coWfzoyRHbXJnSWR@WqQ2ec

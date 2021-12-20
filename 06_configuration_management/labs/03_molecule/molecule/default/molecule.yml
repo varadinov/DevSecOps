@@ -9,18 +9,18 @@ driver:
 
 platforms:
   - name: molecule-linux-webserver-demo-role1
-    aws_image_id: ami-03657b56516ab7912
+    aws_image_id:  ami-002068ed284fb165b 
     aws_region: us-east-2
     instance_type: t2.micro
-    assign_public_ip: False
+    assign_public_ip: True
     groups:
       - webservers    
   
   - name: molecule-linux-webserver-demo-role2
-    aws_image_id: ami-03657b56516ab7912
+    aws_image_id:  ami-002068ed284fb165b  
     aws_region: us-east-2
     instance_type: t2.micro
-    assign_public_ip: False
+    assign_public_ip: True
     groups:
       - webservers
  

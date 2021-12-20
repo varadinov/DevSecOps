@@ -3,6 +3,6 @@
 # These don't have to be explicitly imported by vars_files: they are auto-populated.
 
 mysql_port: 3306
-dbuser: hedgeserv
-dbname: hedgeservdb
+dbuser: dbuser
+dbname: db
 upassword: abc123

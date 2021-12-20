@@ -1,7 +1,10 @@
 # CentOS/RHEL/AmazonLinux
 ```bash
-sudo yum install python3
-sudo pip3 install ansible==2.9.16
+sudo yum install python3 sshpass 
+python3 -m venv ~/ansible
+source ~/ansible/bin/activate
+pip3 install pip --upgrade
+pip3 install ansible==2.9.16 molecule==3.0.8 awscli==1.22.24 boto3==1.20.24 boto==2.49.0 pywinrm
 ```
 
 ```bash
@@ -18,8 +21,10 @@ ansible 2.9.16
 # Ubuntu
 ```bash
 sudo apt update
-sudo apt install python3 python3-pip
-sudo pip3 install ansible==2.9.16
+python3 -m venv ~/ansible
+source ~/ansible/bin/activate
+sudo apt install python3 python3-pip pywinrm>=0.3.0 sshpass
+pip3 install ansible==2.9.16 molecule==3.0.8 awscli==1.22.24 boto3==1.20.24 boto==2.49.0 pywinrm>=0.3.0
 ```
 
 ```bash
@@ -40,4 +45,16 @@ https://www.microsoft.com/en-us/p/ubuntu-2004-lts/9n6svws3rx71?activetab=pivot:o
 For example you can open **work** directory on your **c** drive by 
 ```bash
 cd /mnt/c/work
+```
+
+
+# Set AWS Credentials for Molecule
+## Set credentilas
+You need IAM user with access key
+```
+aws configure
+```
+## Test connection
+```
+aws iam get-user
 ```

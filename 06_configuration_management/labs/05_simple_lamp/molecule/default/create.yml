@@ -18,7 +18,7 @@
       - proto: -1
         from_port: 0
         to_port: 0
-        cidr_ip: 10.0.0.0/8
+        cidr_ip: '0.0.0.0/0'
     security_group_rules_egress:
       - proto: -1
         from_port: 0
@@ -58,7 +58,7 @@
           instance: '{{ item.name }}'
           Name: '{{ item.name }}'
           ansible_dev: "true"
-        vpc_subnet_id: "{{ vpc_subnet_info.subnets | to_json | from_json | json_query('[?contains(tags.Name, `private`)].subnet_id') | first }}"
+        vpc_subnet_id: "{{ vpc_subnet_info.subnets | to_json | from_json | json_query('[*].subnet_id') | first }}"
         #spot_price: '{{ item.spot_price }}'
         spot_wait_timeout: '{{ item.wait_timeout | default(600) }}'
         user_data: "{{ ec2_user_data }}"

@@ -10,14 +10,16 @@
       name: httpd
       state: latest
   
-  - name: ensure apache service is started
+  - name: ensure apache service is started and enabled
     service:
+      enabled: yes
       name: httpd
       state: started
+
 
   - name: Create index.html in /var/www/html/
     template: 
       src: index.html.j2 
       dest: /var/www/html/index.html
     vars:
-      message: "{{ inventory_hostname }}"
+      message:  "{{ inventory_hostname }}"
