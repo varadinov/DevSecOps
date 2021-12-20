@@ -23,7 +23,7 @@
           when: ansible_facts['distribution'] in centos_based_os
 
         - name: Install httpd if debian based
-          yum:
+          apt:
             name: apache
             state: present
           when: ansible_facts['distribution'] in debian_based_os

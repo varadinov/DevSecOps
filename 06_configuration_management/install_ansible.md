@@ -21,10 +21,12 @@ ansible 2.9.16
 # Ubuntu
 ```bash
 sudo apt update
+sudo apt install python3 python3-pip sshpass
 python3 -m venv ~/ansible
+# You need to execute activate on any new shell to use ansible
 source ~/ansible/bin/activate
-sudo apt install python3 python3-pip pywinrm>=0.3.0 sshpass
-pip3 install ansible==2.9.16 molecule==3.0.8 awscli==1.22.24 boto3==1.20.24 boto==2.49.0 pywinrm>=0.3.0
+pip3 install pip --upgrade
+pip3 install ansible==2.9.16 molecule==3.0.8 awscli==1.22.24 boto3==1.20.24 boto==2.49.0 pywinrm
 ```
 
 ```bash
