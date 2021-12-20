@@ -1,4 +1,5 @@
 hosts.yml
+hosts-list.yml
 .venv/*
 boxes/*
 /.vagrant

@@ -28,7 +28,7 @@ platforms:
     aws_image_id: ami-03657b56516ab7912
     aws_region: us-east-2
     instance_type: t2.micro
-    assign_public_ip: False
+    assign_public_ip: True
     groups:
       - dbservers    
  
