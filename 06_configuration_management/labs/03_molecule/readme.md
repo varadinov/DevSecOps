@@ -36,21 +36,6 @@ Run a full cycle which is destroying (if there are object from previous run), cr
 
 **Note:** There are more command and scenarios in molecule but they are for more advanced use cases. You can find more information in the official molecule documentation.
 
-# AWSCLI
-## Instal on Ubuntu
-```
-apt install awscli
-```
-## Set credentilas
-You need IAM user with access key
-```
-aws configure
-```
-## Test connection
-```
-aws iam get-user
-```
-
 # Execute Molecule
 ```bash
 user@computer$ molecule crate

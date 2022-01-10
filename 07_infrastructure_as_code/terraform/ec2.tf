@@ -2,8 +2,10 @@ provider "aws" {
   region = "us-east-2"
 }
 
-output "private_key" {
-  value = tls_private_key.ansible_key.private_key_pem
+resource "local_file" "terraform_ssh_key" {
+    content     = tls_private_key.ansible_key.private_key_pem
+    filename = "/home/bvaradinov/.ssh/id_rsa_terraform"
+    file_permission = "0600"
 }
 
 resource "tls_private_key" "ansible_key" {
@@ -17,7 +19,7 @@ resource "aws_key_pair" "ansible_user" {
 }
 
 resource "aws_instance" "webservers" {
-  count = 3 # create four similar EC2 instances
+  count = 3 # create three similar EC2 instances
   
   ami           = "ami-0a0ad6b70e61be944"
   instance_type = "t2.micro"
@@ -28,6 +30,7 @@ resource "aws_instance" "webservers" {
   tags = {
     Name = "web${count.index}"
     Role = "webserver"
+    Public = "true"
   }
 }
 
@@ -37,7 +40,7 @@ resource "aws_security_group" "allow_web_traffic" {
   description = "Allow inbound web traffic"
 
   ingress {
-    description = "TLS from VPC"
+    description = "TLS from anywhere"
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
@@ -45,7 +48,7 @@ resource "aws_security_group" "allow_web_traffic" {
   }
 
   ingress {
-    description = "TLS from VPC"
+    description = "TLS from anywhere"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -53,7 +56,7 @@ resource "aws_security_group" "allow_web_traffic" {
   }
 
   ingress {
-    description = "TLS from VPC"
+    description = "TLS from anywhere"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"

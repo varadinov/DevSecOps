@@ -6,3 +6,7 @@ boxes/*
 /.vscode
 **/.vagrant
 **/~$*
+*.lock.hcl
+*.tfstate
+*.tfstate.backup
+.terraform
