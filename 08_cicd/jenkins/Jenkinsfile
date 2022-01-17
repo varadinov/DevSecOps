@@ -12,12 +12,13 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh "docker run -d -p 8080:8080 myapp"
+                sh "docker run -d -p 8080:8080 --name myapp myapp"
             }
         }
 
         stage('Integration Test') {
             steps {
+                sleep 30
                 sh "curl http://localhost:8080 -f"
             }
         }
