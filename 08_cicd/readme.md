@@ -17,7 +17,7 @@ systemctl enable docker
 
 # Run docker container 
 ```bash
-docker run -d -p 8080:8080 -p 50000:50000 --name=jenkins jenkins/jenkins:lts
+docker run -d -p 80:8080 -p 50000:50000 --name=jenkins jenkins/jenkins:lts
 docker logs jenkins -f
 ```
 **Note:** This example is not good for production. You have to mount the jenkins data to a persistante locaton.

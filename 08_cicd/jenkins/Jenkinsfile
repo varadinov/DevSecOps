@@ -2,18 +2,24 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello World') {
+        stage('Build') {
             steps {
-                echo 'Hello World'
+                dir('08_cicd/jenkins') {
+                    sh "docker build . -t myapp"
+                }
             }
         }
 
-        // This is an example if you want to run ansible
-        // You need ansible to be installed on the agent or the container where you run the pipeline
-        // stage('Ansible Web Servers') {
-        //     steps {
-        //         sh 'ansible-playbook web_servers.yml -i hosts'
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                sh "echo 'Test myapp'"
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh "docker run -d -p 8080:8080 myapp"
+            }
+        }
     }
 }

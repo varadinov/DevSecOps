@@ -2,10 +2,15 @@ provider "aws" {
   region = "us-east-2"
 }
 
-output "private_key" {
-  value = tls_private_key.ansible_key.private_key_pem
+output "public_dns" {
+  value = aws_instance.jenkins[*].public_dns
 }
 
+resource "local_file" "terraform_ssh_key" {
+    content     = tls_private_key.ansible_key.private_key_pem
+    filename = "/home/bvaradinov/.ssh/id_rsa_terraform"
+    file_permission = "0600"
+}
 resource "tls_private_key" "ansible_key" {
   algorithm = "RSA"
   rsa_bits  = 4096

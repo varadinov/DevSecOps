@@ -10,3 +10,4 @@ boxes/*
 *.tfstate
 *.tfstate.backup
 .terraform
+**/venv
