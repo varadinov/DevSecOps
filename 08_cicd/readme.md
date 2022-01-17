@@ -10,6 +10,7 @@ terraform apply
 
 # Install docker
 ```bash
+sudo -s
 amazon-linux-extras install docker -y
 systemctl start docker 
 systemctl enable docker

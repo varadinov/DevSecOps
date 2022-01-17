@@ -10,15 +10,15 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh "echo 'Test myapp'"
-            }
-        }
-
         stage('Deploy') {
             steps {
                 sh "docker run -d -p 8080:8080 myapp"
+            }
+        }
+
+        stage('Integration Test') {
+            steps {
+                sh "curl http://localhost:8080 -f"
             }
         }
     }
