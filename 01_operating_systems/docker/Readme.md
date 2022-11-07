@@ -119,6 +119,13 @@ docker images
 docker run -p 8010:80 -d my-nginx
 ```
 
+* Run container with mounted directory from the host
+```bash
+mkdir html
+echo "<h1>Hello, This is my NGINX without updating the image</h1>" > html/index.html
+docker run -p 8010:80 -d --mount src="$(pwd)/html",target=/usr/share/nginx/html,type=bind  my-nginx
+```
+
 * Create new image using Dockerfile.  
 In this exercise you are creating a new image using a Dockerfile. This is the recommended approach for image creation.
 
