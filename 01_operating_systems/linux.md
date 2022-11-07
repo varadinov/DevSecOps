@@ -188,5 +188,6 @@ cat /proc/meminfo - Display memory information
 free -h - Display free and used memory ( -h for human readable, -m for MB, -g for GB.)
 lspci -tv - Display PCI devices
 lsusb -tv - Display USB devices
+lsblk - List block devices information
 hdparm -i /dev/sda - Show info about disk sda
 ```

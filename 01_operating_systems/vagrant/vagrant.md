@@ -1,5 +1,5 @@
 # Vagrant
-Vagrant tries to simplify the configuration management of virtual machines in order to increase productivity. It is simple an powersful tool provided as an open source project by HashiCorp. It leverages a declarative ruby dialect in configuration file (Vagrantfile) which describes all your requirements. Vagrant works on all three major platforms Windows, Mac and Linux.
+Vagrant tries to simplify the configuration management of virtual machines in order to increase productivity. It is simple an powerful tool provided as an open source project by HashiCorp. It leverages a declarative ruby dialect in configuration file (Vagrantfile) which describes all your requirements. Vagrant works on all three major platforms Windows, Mac and Linux.
 
 # Vagrant Basic commands
 ## Creating a VM
