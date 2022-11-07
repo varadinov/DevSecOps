@@ -7,4 +7,4 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World", "time": datetime.now(), "hostname": socket.gethostname(), "IP": local_ip}
+    return {"message": "Hello World", "time": datetime.now(), "hostname": socket.gethostname()}

@@ -79,13 +79,13 @@ docker ps
 docker ps -a
 
 ```
-* Run nginx listening on port 80 
+* Run nginx listening on port 80  
 Note: -d is detach from the running container
 ```bash
 docker run -p 80:80 -d nginx
 ```
 
-* Attach and look real-time output of the process
+* Attach and look real-time output of the process  
 Note: you can detach with CTRL+P followed by CTRL+Q
 ```bash
 docker attach <container-id>
@@ -95,6 +95,7 @@ docker attach <container-id>
 ```bash
 docker exec -it <container-id> /bin/bash
 ```
+
 
 * Create docker image manually
 In this exercise you are modifying and existing container and saving it to a new image.  
@@ -118,8 +119,10 @@ docker images
 docker run -p 8010:80 -d my-nginx
 ```
 
-* Create new image using Dockerfile.
-In this exercise you are creating a new image using a Dockerfile. 
+* Create new image using Dockerfile.  
+In this exercise you are creating a new image using a Dockerfile. This is the recommended approach for image creation.
+
+- Review the docker file
 ```Dockerfile
 FROM python:3.10     # -----> Use python version 3.10 image as base image
 RUN pip3 install "fastapi[all]"    # -----> Install python fastapi framework
@@ -127,10 +130,20 @@ WORKDIR /app   # ----> Creating working directory in the image
 ADD main.py /app/   # -----> Copy our fastapi application to the image
 CMD python -m uvicorn main:app --host 0.0.0.0 --port 8000   # -----> execute this command when you run a container
 ```
-Note: this is the recommended approach to create new images.
 
+- Build the docker image from the Dockerfile in the current directory
 ```bash
 cd fastapi_simple_project
 docker build . -t fastapi_simple_project
-docker run -p 8099:8000 fastapi_simple_project:latest
+docker run -p 8099:8000 -d --name fastapi_simple_project fastapi_simple_project:latest
+cd ../
+```
+
+* Run container with mounted directory from the host file system
+```bash
+mkdir /tmp/my_container_data
+cd fastapi_simple_project 
+docker build . -t fastapi_simple_project
+docker run -p 8100:8000 -d --name fastapi_write_project --mount src=/tmp/my_container_data,target=/data,type=bind fastapi_simple_project:latest
+cd ../
 ```
