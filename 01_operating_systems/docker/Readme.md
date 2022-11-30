@@ -123,7 +123,7 @@ docker run -p 8010:80 -d my-nginx
 ```bash
 mkdir html
 echo "<h1>Hello, This is my NGINX without updating the image</h1>" > html/index.html
-docker run -p 8010:80 -d --mount src="$(pwd)/html",target=/usr/share/nginx/html,type=bind  my-nginx
+docker run -p 8010:80 -d --mount src="$(pwd)/html",target=/usr/share/nginx/html,type=bind nginx:latest
 ```
 
 * Create new image using Dockerfile.  
