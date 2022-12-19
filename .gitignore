@@ -11,3 +11,4 @@ boxes/*
 *.tfstate.backup
 .terraform
 **/venv
+.~lock*

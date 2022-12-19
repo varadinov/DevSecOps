@@ -4,7 +4,7 @@ sudo yum install python3 sshpass
 python3 -m venv ~/ansible
 source ~/ansible/bin/activate
 pip3 install pip --upgrade
-pip3 install ansible==2.9.16 molecule==3.0.8 awscli==1.22.24 boto3==1.20.24 boto==2.49.0 pywinrm
+pip3 install ansible==2.9.16 molecule==3.0.8 awscli==1.22.24 boto3==1.20.24 boto==2.49.0 pywinrm "Jinja2<3.1"
 ```
 
 ```bash
@@ -26,7 +26,7 @@ python3 -m venv ~/ansible
 # You need to execute activate on any new shell to use ansible
 source ~/ansible/bin/activate
 pip3 install pip --upgrade
-pip3 install ansible==2.9.16 molecule==3.0.8 awscli==1.22.24 boto3==1.20.24 boto==2.49.0 pywinrm
+pip3 install ansible==2.9.16 molecule==3.0.8 awscli==1.22.24 boto3==1.20.24 boto==2.49.0 pywinrm "Jinja2<3.1"
 ```
 
 ```bash

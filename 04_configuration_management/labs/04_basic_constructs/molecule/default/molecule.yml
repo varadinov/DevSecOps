@@ -9,16 +9,16 @@ driver:
 
 platforms:
   - name: molecule-linux-lab-demo-webserver
-    aws_image_id: ami-03657b56516ab7912
-    aws_region: us-east-2
+    aws_image_id: ami-0b0dcb5067f052a63 
+    aws_region: us-east-1
     instance_type: t2.micro
     assign_public_ip: True
     groups:
       - webservers    
  
   - name: molecule-linux-lab-demo-dbserver
-    aws_image_id: ami-03657b56516ab7912
-    aws_region: us-east-2
+    aws_image_id: ami-0b0dcb5067f052a63
+    aws_region: us-east-1
     instance_type: t2.micro
     assign_public_ip: True
     groups:

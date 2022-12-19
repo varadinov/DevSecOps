@@ -14,7 +14,7 @@
 
     - name: Destroy molecule instance(s)
       ec2:
-        region: us-east-2
+        region: us-east-1
         state: absent
         instance_ids: "{{ ec2_sets.instances | map(attribute='instance_id') | list }}"
         wait: True

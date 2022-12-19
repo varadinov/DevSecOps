@@ -14,7 +14,7 @@
 
     - name: Destroy molecule instance(s)
       ec2:
-        region: us-east-2
+        region: us-east-1
         state: absent
         instance_ids: "{{ ec2_sets.instances | map(attribute='instance_id') | list }}"
         wait: True
@@ -25,7 +25,7 @@
 
     # - name: Wait for instance(s) deletion to complete
     #   async_status:
-    #     jid: "{{ server.ansible_job_id }}"
+    #     jid: "{{ server.ansible_job_id }}"i-08ba48af474af7652
     #   register: ec2_jobs
     #   until: ec2_jobs.finished
     #   retries: 300

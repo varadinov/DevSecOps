@@ -16,10 +16,9 @@
       name: httpd
       state: started
 
-
   - name: Create index.html in /var/www/html/
     template: 
       src: index.html.j2 
       dest: /var/www/html/index.html
     vars:
-      message:  "{{ inventory_hostname }}"
+      message:  "This is our corporate web server!"
