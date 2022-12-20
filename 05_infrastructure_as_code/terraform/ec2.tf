@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "local_file" "terraform_ssh_key" {
     content     = tls_private_key.ansible_key.private_key_pem
-    filename = "/home/bvaradinov/.ssh/id_rsa_terraform"
+    filename = "/home/borislav/.ssh/id_rsa_terraform"
     file_permission = "0600"
 }
 
@@ -21,7 +21,7 @@ resource "aws_key_pair" "ansible_user" {
 resource "aws_instance" "webservers" {
   count = 3 # create three similar EC2 instances
   
-  ami           = "ami-0a0ad6b70e61be944"
+  ami           = "ami-0a606d8395a538502"
   instance_type = "t2.micro"
   security_groups = [ aws_security_group.allow_web_traffic.name ]
   key_name = aws_key_pair.ansible_user.key_name
