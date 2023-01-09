@@ -1,4 +1,4 @@
-FROM centos:centos8 as base
+FROM amazonlinux:latest as base
 RUN yum update -y && yum install python3 python3-pip python3-devel gcc -y 
 
 FROM base as python
