@@ -6,7 +6,7 @@ terraform apply
 ```
 # Connect to machine
 * Use the ssh key from terraform output
-* ssh ec2-user@<MachineIp>
+* ssh ec2-user@<MachineIp> -i ~/.ssh/id_rsa_terraform
 
 # Install docker
 ```bash
